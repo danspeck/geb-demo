@@ -1,0 +1,37 @@
+* Geb Presentation
+** Quick Start
+:PROPERTIES:
+:ID: a46d05d4-6d01-494d-833d-7245ccf530b9
+:END:
+- Groovy Version 1.7.5
+- Groovy Console
+#+begin_src groovy :tangle enrollioExample.groovy
+  @Grapes([
+              @Grab("org.codehaus.geb:geb-core:latest.release"),
+              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
+  ])
+  
+  import geb.Browser
+  Browser.drive("http://enrollio.org") {
+      assert title == "Help - About"
+  }
+#+end_src
+
+** Another Example
+:PROPERTIES:
+:ID: 812abad7-d35f-4336-af83-b62b202e0592
+:END:
+#+begin_src groovy :tangle enrollioExample2.groovy
+  @Grapes([
+              @Grab("org.codehaus.geb:geb-core:latest.release"),
+              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
+  ])
+  
+  import geb.Browser
+  Browser.drive("http://enrollio.org") {
+      $("input", name: "q").value("wikipedia")
+      $("input", value: "Search").click()
+      assert title.endsWith("Google Search")
+      assert $("li.g", 0).find("a.l").text() == "Wikipedia"
+  }
+#+end_src
