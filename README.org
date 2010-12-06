@@ -1,10 +1,12 @@
 * Geb Presentation
-** Quick Start
+* Quick Start
 :PROPERTIES:
 :ID: a46d05d4-6d01-494d-833d-7245ccf530b9
 :END:
-- Groovy Version 1.7.5
-- Groovy Console
+- Recommended Groovy Version 1.7.5
+http://groovy.codehaus.org/Download
+- Firefox needs to be installed for this demo
+- Run this from Groovy Console
 #+begin_src groovy :tangle enrollioExample.groovy
   @Grapes([
               @Grab("org.codehaus.geb:geb-core:latest.release"),
@@ -16,22 +18,69 @@
       assert title == "Help - About"
   }
 #+end_src
-
-** Another Example
+* Breakdown
 :PROPERTIES:
-:ID: 812abad7-d35f-4336-af83-b62b202e0592
+:ID: 23b1e0d9-75c7-427e-83a9-b22572f2d44e
+:END:
+* Grapes pulls down necessary code.  This is a mystery how it works for me.
+:PROPERTIES:
+:ID: decdc638-cc04-485e-9d6a-593c783c969a
 :END:
 #+begin_src groovy :tangle enrollioExample2.groovy
-  @Grapes([
+ @Grapes([
               @Grab("org.codehaus.geb:geb-core:latest.release"),
               @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
   ])
-  
-  import geb.Browser
-  Browser.drive("http://enrollio.org") {
-      $("input", name: "q").value("wikipedia")
-      $("input", value: "Search").click()
-      assert title.endsWith("Google Search")
-      assert $("li.g", 0).find("a.l").text() == "Wikipedia"
-  }
+
+#+end_src
+
+* Basic enclosure for running a test.
+:PROPERTIES:
+:ID: df2c04db-2a1f-40d7-9884-f44886a25ede
+:END:
+#+begin_src groovy :tangle enrollioExample2.groovy :noweb tangle
+import geb.Browser
+Browser.drive("http://enrollio.org") {
+    <<simpleTests>>
+    <<simpleTestsAttributes>>
+    <<simpleTestsRelationships>>
+}
+#+end_src
+* CSS / Jquery like syntax for selecting HTML elements
+:PROPERTIES:
+:ID: 812abad7-d35f-4336-af83-b62b202e0592
+:END:
+#+srcname: simpleTests
+#+begin_src groovy :noweb tangle
+ assert title == "Help - About"
+ // Simple testing for presence of an element.
+ // Jquery selectors bring back a list of matches
+ assert $("a", text:"Loooogin").size() == 0
+ assert $("a", text:"Login").size() == 1
+#+end_src
+
+Test results are some kind of instance of selenium's FirefoxWebElement (if you're using Firefox Driver)
+http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html
+
+* Attirbute Selectors
+The two tests below are the same.  Both of them match
+
+#+begin_src html
+<h3 class="reallynow">Thanks</h3>
+#+end_src
+
+#+srcname: simpleTestsAttributes
+#+begin_src groovy :noweb tangle
+    assert $("h3", class: "reallynow", text: "Thanks").size() == 1
+    assert $("h3.reallynow", text: "Thanks").size() == 1
+    
+
+
+#+end_src
+
+* Relationships
+#+srcname: simpleTestsRelationships
+#+begin_src groovy :noweb tangle
+assert $("h3.reallynow").siblings("p").find { it.text =~/Dangle/)
+
 #+end_src
