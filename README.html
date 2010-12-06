@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>Geb</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2010-12-06 00:13:31 CST"/>
+<meta name="author" content="nate"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" href="org.css" type="text/css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">Geb</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Geb </a>
+<ul>
+<li><a href="#sec-1_1">1.1 Installation </a></li>
+<li><a href="#sec-1_2">1.2 Quick Start </a></li>
+<li><a href="#sec-1_3">1.3 CSS / Jquery like syntax for selecting HTML elements </a></li>
+<li><a href="#sec-1_4">1.4 Attribute Selectors </a></li>
+<li><a href="#sec-1_5">1.5 Testing Relationships </a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 See Also </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Geb </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1_1" class="outline-3">
+<h3 id="sec-1_1"><span class="section-number-3">1.1</span> Installation </h3>
+<div class="outline-text-3" id="text-1_1">
+
+<ul>
+<li>
+Recommended Groovy Version 1.7.5
+</li>
+<li>
+I've tested on Ubuntu Linux, other OSs to follow
+</li>
+<li>
+For this demo, you need Firefox installed
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1_2" class="outline-3">
+<h3 id="sec-1_2"><a name="ID-a46d05d4-6d01-494d-833d-7245ccf530b9" id="ID-a46d05d4-6d01-494d-833d-7245ccf530b9"></a><span class="section-number-3">1.2</span> Quick Start </h3>
+<div class="outline-text-3" id="text-1_2">
+
+<p>Run this from the Groovy Console
+</p>
+
+
+<pre class="src src-groovy"><span class="org-variable-name">@Grapes</span>([
+            <span class="org-variable-name">@Grab</span>(<span class="org-string">"org.codehaus.geb:geb-core:latest.release"</span>),
+            <span class="org-variable-name">@Grab</span>(<span class="org-string">"org.seleniumhq.selenium:selenium-firefox-driver:latest.release"</span>)
+])
+
+<span class="org-keyword">import</span> geb.<span class="org-type">Browser</span>
+<span class="org-type">Browser</span>.drive(<span class="org-string">"http://enrollio.org"</span>) {
+    <span class="org-keyword">assert</span> title == <span class="org-string">"Help - About"</span>
+}
+</pre>
+
+
+
+<ul>
+<li>
+Grapes pulls down dependency goodies.  How it works is beyond me.
+</li>
+<li>
+Selenium runs under the hood, and creates an instance of the specified browser.
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1_3" class="outline-3">
+<h3 id="sec-1_3"><a name="ID-812abad7-d35f-4336-af83-b62b202e0592" id="ID-812abad7-d35f-4336-af83-b62b202e0592"></a><span class="section-number-3">1.3</span> CSS / Jquery like syntax for selecting HTML elements </h3>
+<div class="outline-text-3" id="text-1_3">
+
+
+
+
+<div class="org-src-container"><label class="org-src-name">simpleTests()</label><pre class="src src-groovy">
+<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"a"</span>, text:<span class="org-string">"Loooogin"</span>).size() == 0
+<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"a"</span>, text:<span class="org-string">"Login"</span>).size() == 1
+</pre></div>
+
+
+
+<p>
+Test results are some kind of instance of selenium's FirefoxWebElement
+(if you're using Firefox Driver)
+</p>
+<p>
+<a href="http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html">http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html</a>
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1_4" class="outline-3">
+<h3 id="sec-1_4"><span class="section-number-3">1.4</span> Attribute Selectors </h3>
+<div class="outline-text-3" id="text-1_4">
+
+<p>Say we have the following HTML:
+</p>
+
+
+
+<pre class="src src-html">&lt;<span class="org-function-name">h3</span> <span class="org-variable-name">class</span>=<span class="org-string">"reallynow"</span>&gt;<span class="org-underline"><span class="org-italic">Thanks</span></span>&lt;/<span class="org-function-name">h3</span>&gt;
+</pre>
+
+
+
+<p>
+Here's the Geb code we need to match the HTML.  (Both expressions match)
+</p>
+
+
+
+<div class="org-src-container"><label class="org-src-name">simpleTestsAttributes()</label><pre class="src src-groovy">
+<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"h3"</span>, <span class="org-keyword">class</span>: <span class="org-string">"reallynow"</span>, text: <span class="org-string">"Thanks"</span>).size() == 1
+<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"h3.reallynow"</span>, text: <span class="org-string">"Thanks"</span>).size() == 1
+</pre></div>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1_5" class="outline-3">
+<h3 id="sec-1_5"><span class="section-number-3">1.5</span> Testing Relationships </h3>
+<div class="outline-text-3" id="text-1_5">
+
+<p>Here we have a &lt;p&gt; element that's right next to an h3 which has the
+version of our software.  We can make sure the website shows the
+correct version.
+</p>
+
+
+
+<pre class="src src-html">&lt;<span class="org-function-name">h3</span> <span class="org-variable-name">class</span>=<span class="org-string">"reallynow"</span>&gt;<span class="org-underline"><span class="org-italic">Version</span></span>&lt;/<span class="org-function-name">h3</span>&gt;
+&lt;<span class="org-function-name">p</span>&gt;Version 0.2 "Dangle"&lt;/<span class="org-function-name">p</span>&gt;
+</pre>
+
+
+
+
+<div class="org-src-container"><label class="org-src-name">simpleTestsRelationships()</label><pre class="src src-groovy">
+<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"h3.reallynow"</span>).siblings(<span class="org-string">"p"</span>).find { it.text =~/<span class="org-type">Dangle</span>/)
+<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"h3.reallynow"</span>).siblings(<span class="org-string">"p"</span>).find { it.text =~/0.2/)
+</pre></div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> See Also </h2>
+<div class="outline-text-2" id="text-2">
+
+<ul>
+<li>
+Geb
+</li>
+</ul>
+
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: nate
+</p>
+<p class="date"> Date: 2010-12-06 00:13:31 CST</p>
+<p class="creator">HTML generated by org-mode 7.3 in emacs 23</p>
+</div>
+</div>
+</body>
+</html>
