@@ -30,7 +30,6 @@ Run this from the Groovy Console
 :ID: df2c04db-2a1f-40d7-9884-f44886a25ede
 :END:
 #+begin_src groovy :tangle advancedTest.groovy :noweb tangle
-#!/bin/env groovy
 @Grapes([
               @Grab("org.codehaus.geb:geb-core:latest.release"),
               @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
