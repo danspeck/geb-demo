@@ -9,6 +9,6 @@ Browser.drive("http://enrollio.org") {
     assert $("a", text:"Login").size() == 1
     assert $("h3", class: "reallynow", text: "Thanks").size() == 1
     assert $("h3.reallynow", text: "Thanks").size() == 1
-    assert $("h3.reallynow").siblings("p").find { it.text =~/Dangle/)
-    assert $("h3.reallynow").siblings("p").find { it.text =~/0.2/)
+    assert $("h3.reallynow").siblings("p").find { it.text() =~/Dangle/ }
+    assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 }

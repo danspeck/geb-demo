@@ -83,8 +83,8 @@ correct version.
 
 #+srcname: simpleTestsRelationships
 #+begin_src groovy :noweb tangle
-assert $("h3.reallynow").siblings("p").find { it.text =~/Dangle/)
-assert $("h3.reallynow").siblings("p").find { it.text =~/0.2/)
+assert $("h3.reallynow").siblings("p").find { it.text() =~/Dangle/ }
+assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 #+end_src
 
 * See Also
