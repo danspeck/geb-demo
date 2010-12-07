@@ -7,4 +7,6 @@
 import geb.Browser
 Browser.drive("http://enrollio.org") {
     assert title == "Help - About"
+    // Un-comment driver.close() to close the browser window
+    // driver.close()
 }
