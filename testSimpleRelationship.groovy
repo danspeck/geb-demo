@@ -4,7 +4,13 @@
               @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
 ])
 import geb.Browser
-Browser.drive("http://enrollio.org") {
+try {
+    Browser.drive("http://enrollio.org") {
 assert $("h3.reallynow").siblings("p").find { it.text() =~/Dangle/ }
 assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
+}
+}
+catch (geb.error.DriveException dex) { 
+    dex.printStackTrace() 
+    System.exit(1)
 }

@@ -4,7 +4,8 @@
               @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
 ])
 import geb.Browser
-Browser.drive("http://enrollio.org") {
+try {
+    Browser.drive("http://enrollio.org") {
 $("a", text:"Login").click()
 $("#loginForm").username = "gug"
 $("#loginForm").password = "groovy18"
@@ -22,4 +23,9 @@ def linkToWoodstockStudent = $("tr td:nth-child(2) a", text:contains("Woodstock 
 assert studentLink.size() != 0
 studentLink.click()
 assert title == "Student: Woodstock Jackson"
+}
+}
+catch (geb.error.DriveException dex) { 
+    dex.printStackTrace() 
+    System.exit(1)
 }
