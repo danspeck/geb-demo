@@ -158,7 +158,7 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
         studentLink.click()
         assert title == "Student: Woodstock Jackson"
 #+end_src
-*** Render :nopub:
+** Render                                                            :nopub:
 :PROPERTIES:
 :ID: 125a917b-49b5-4d98-8cf9-88d9fbe4bdab
 :END:
@@ -168,6 +168,61 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 <<complexExample>>
 <<footer>>
 #+end_src
+* Moving Along
+** We need a test harness
+- Improvements to the above setup
+- Need to find out how to get more descriptive test results when
+  running simple tests.
+- Would need to replicate a lot of code when running similar tests
+
+** We have a lot of code that's duplicated within each script
+- Login code
+- Click here, click there
+- What if "Students" link changes or moves?
+* Page Object Pattern
+http://geb.codehaus.org/manual/latest/intro.html#the_page_object_pattern
+
+** Example
+#+srcname: failedLoginPageObjectPattern
+#+begin_src groovy
+  class LoginPage extends Page {
+      static url = "http://enrollio.org/login"
+      static at = { title == "Login" }
+      static content = {
+          usernameField { $("input[name='username']") }
+          passwordField { $("input[name='password']") }
+          loginButton{ $("#login") }
+          errorsMessage { $("div.errors").text() }
+      }
+  }
+   
+  Browser.drive(LoginPage) {
+          usernameField.value("badguy")
+          passwordField.value("badguypassword")
+          loginButton.click()
+          assert at(LoginPage)
+          assert errorsMessage =~ /(?i)invALID uSERNAME.*password/
+          assert errorsMessage =~ /Invalid username.*password/
+  }
+  
+#+end_src
+*** Render :nopub:
+:PROPERTIES:
+:ID: 1FFA9F61-6D48-4CD4-804C-584C7BD40707
+:END:
+
+#+begin_src groovy :tangle testFailedLoginPageObjectPattern.groovy :noweb tangle 
+<<popHeader>>
+<<failedLoginPageObjectPattern>>
+#+end_src
+
+** Compared To
+* Easy to Get Started
+- Demo of Peter's SpringOnePresentation
+http://github.com/geb/geb-springone2gx-2010-example.git
+* See Also
+- Geb home page: http://geb.codehaus.org
+- Geb Mailing List: http://markmail.org/list/org.codehaus.geb.user
 * Source Code                                                   :nopub:
 :PROPERTIES:
 :ID: df2c04db-2a1f-40d7-9884-f44886a25ede
@@ -176,7 +231,7 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 #+begin_src groovy
 @Grapes([
               @Grab("org.codehaus.geb:geb-core:latest.release"),
-              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
+              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.0a5")
 ])
 import geb.Browser
 try {
