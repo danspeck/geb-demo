@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>Geb</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-12-06 00:13:31 CST"/>
+<meta name="generated" content="2010-12-07 00:30:52 CST"/>
 <meta name="author" content="nate"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -90,14 +90,23 @@ lang="en" xml:lang="en">
 <ul>
 <li><a href="#sec-1">1 Geb </a>
 <ul>
-<li><a href="#sec-1_1">1.1 Installation </a></li>
-<li><a href="#sec-1_2">1.2 Quick Start </a></li>
-<li><a href="#sec-1_3">1.3 CSS / Jquery like syntax for selecting HTML elements </a></li>
-<li><a href="#sec-1_4">1.4 Attribute Selectors </a></li>
-<li><a href="#sec-1_5">1.5 Testing Relationships </a></li>
+<li><a href="#sec-1_1">1.1 Another web testing framework? </a>
+<ul>
+<li><a href="#sec-1_1_1">1.1.1 Geb uses CSS / Jquery like syntax for selecting HTML elements </a></li>
+<li><a href="#sec-1_1_2">1.1.2 Page-Object Pattern </a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2 See Also </a></li>
+<li><a href="#sec-1_2">1.2 Installation </a></li>
+<li><a href="#sec-1_3">1.3 Quick Start </a></li>
+<li><a href="#sec-1_4">1.4 Attribute Selectors </a></li>
+<li><a href="#sec-1_5">1.5 Testing Relationships </a></li>
+<li><a href="#sec-1_6">1.6 Failed Login </a></li>
+<li><a href="#sec-1_7">1.7 Successful Login </a></li>
+<li><a href="#sec-1_8">1.8 One more powerful example </a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 Moving Along </a></li>
+<li><a href="#sec-3">3 See Also </a></li>
 </ul>
 </div>
 </div>
@@ -110,18 +119,48 @@ lang="en" xml:lang="en">
 </div>
 
 <div id="outline-container-1_1" class="outline-3">
-<h3 id="sec-1_1"><span class="section-number-3">1.1</span> Installation </h3>
+<h3 id="sec-1_1"><span class="section-number-3">1.1</span> Another web testing framework? </h3>
 <div class="outline-text-3" id="text-1_1">
+
+
+</div>
+
+<div id="outline-container-1_1_1" class="outline-4">
+<h4 id="sec-1_1_1"><span class="section-number-4">1.1.1</span> Geb uses CSS / Jquery like syntax for selecting HTML elements </h4>
+<div class="outline-text-4" id="text-1_1_1">
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1_1_2" class="outline-4">
+<h4 id="sec-1_1_2"><span class="section-number-4">1.1.2</span> Page-Object Pattern </h4>
+<div class="outline-text-4" id="text-1_1_2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_2" class="outline-3">
+<h3 id="sec-1_2"><span class="section-number-3">1.2</span> Installation </h3>
+<div class="outline-text-3" id="text-1_2">
 
 <ul>
 <li>
 Recommended Groovy Version 1.7.5
 </li>
 <li>
-I've tested on Ubuntu Linux, other OSs to follow
+I've tested on Ubuntu Linux, Windows XP, Cygwin
 </li>
 <li>
 For this demo, you need Firefox installed
+</li>
+<li>
+To test other browsers (Chrome, Internet Explorer), I <i>think</i> you
+need to have that browser installed on your system.
 </li>
 </ul>
 
@@ -129,22 +168,25 @@ For this demo, you need Firefox installed
 
 </div>
 
-<div id="outline-container-1_2" class="outline-3">
-<h3 id="sec-1_2"><a name="ID-a46d05d4-6d01-494d-833d-7245ccf530b9" id="ID-a46d05d4-6d01-494d-833d-7245ccf530b9"></a><span class="section-number-3">1.2</span> Quick Start </h3>
-<div class="outline-text-3" id="text-1_2">
+<div id="outline-container-1_3" class="outline-3">
+<h3 id="sec-1_3"><a name="ID-a46d05d4-6d01-494d-833d-7245ccf530b9" id="ID-a46d05d4-6d01-494d-833d-7245ccf530b9"></a><span class="section-number-3">1.3</span> Quick Start </h3>
+<div class="outline-text-3" id="text-1_3">
 
 <p>Run this from the Groovy Console
 </p>
 
 
-<pre class="src src-groovy"><span class="org-variable-name">@Grapes</span>([
-            <span class="org-variable-name">@Grab</span>(<span class="org-string">"org.codehaus.geb:geb-core:latest.release"</span>),
-            <span class="org-variable-name">@Grab</span>(<span class="org-string">"org.seleniumhq.selenium:selenium-firefox-driver:latest.release"</span>)
+<pre class="src src-groovy"><span style="color: #a0522d;">@Grapes</span>([
+              <span style="color: #a0522d;">@Grab</span>(<span style="color: #8b2252;">"org.codehaus.geb:geb-core:latest.release"</span>),
+              <span style="color: #a0522d;">@Grab</span>(<span style="color: #8b2252;">"org.seleniumhq.selenium:selenium-firefox-driver:latest.release"</span>)
 ])
-
-<span class="org-keyword">import</span> geb.<span class="org-type">Browser</span>
-<span class="org-type">Browser</span>.drive(<span class="org-string">"http://enrollio.org"</span>) {
-    <span class="org-keyword">assert</span> title == <span class="org-string">"Help - About"</span>
+<span style="color: #a020f0;">import</span> geb.<span style="color: #228b22;">Browser</span>
+<span style="color: #228b22;">Browser</span>.drive(<span style="color: #8b2252;">"http://enrollio.org"</span>) {  
+      <span style="color: #a020f0;">assert</span> title == <span style="color: #8b2252;">"Help - About"</span>
+      <span style="color: #b22222;">// </span><span style="color: #b22222;">Un-comment driver.close() to close the browser window
+</span>      <span style="color: #b22222;">// </span><span style="color: #b22222;">driver.close()  
+</span>      <span style="color: #a020f0;">assert</span> <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"a"</span>, text:<span style="color: #8b2252;">"Loooogin"</span>).size() == 0
+      <span style="color: #a020f0;">assert</span> <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"a"</span>, text:<span style="color: #8b2252;">"Login"</span>).size() == 1
 }
 </pre>
 
@@ -157,48 +199,27 @@ Grapes pulls down dependency goodies.  How it works is beyond me.
 <li>
 Selenium runs under the hood, and creates an instance of the specified browser.
 </li>
+<li>
+Test results are some kind of instance of selenium's FirefoxWebElement
+</li>
 </ul>
 
-
-</div>
-
-</div>
-
-<div id="outline-container-1_3" class="outline-3">
-<h3 id="sec-1_3"><a name="ID-812abad7-d35f-4336-af83-b62b202e0592" id="ID-812abad7-d35f-4336-af83-b62b202e0592"></a><span class="section-number-3">1.3</span> CSS / Jquery like syntax for selecting HTML elements </h3>
-<div class="outline-text-3" id="text-1_3">
-
-
-
-
-<div class="org-src-container"><label class="org-src-name">simpleTests()</label><pre class="src src-groovy">
-<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"a"</span>, text:<span class="org-string">"Loooogin"</span>).size() == 0
-<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"a"</span>, text:<span class="org-string">"Login"</span>).size() == 1
-</pre></div>
-
-
-
-<p>
-Test results are some kind of instance of selenium's FirefoxWebElement
-(if you're using Firefox Driver)
-</p>
-<p>
-<a href="http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html">http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html</a>
+<p><a href="http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html">http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html</a>
 </p>
 </div>
 
 </div>
 
 <div id="outline-container-1_4" class="outline-3">
-<h3 id="sec-1_4"><span class="section-number-3">1.4</span> Attribute Selectors </h3>
+<h3 id="sec-1_4"><a name="ID-56d305d5-f9a0-4d8b-bdf4-2ef7e139d86a" id="ID-56d305d5-f9a0-4d8b-bdf4-2ef7e139d86a"></a><span class="section-number-3">1.4</span> Attribute Selectors </h3>
 <div class="outline-text-3" id="text-1_4">
 
-<p>Say we have the following HTML:
+<p>Given the following HTML:
 </p>
 
 
 
-<pre class="src src-html">&lt;<span class="org-function-name">h3</span> <span class="org-variable-name">class</span>=<span class="org-string">"reallynow"</span>&gt;<span class="org-underline"><span class="org-italic">Thanks</span></span>&lt;/<span class="org-function-name">h3</span>&gt;
+<pre class="src src-html">&lt;<span style="color: #0000ff;">h3</span> <span style="color: #a0522d;">class</span>=<span style="color: #8b2252;">"reallynow"</span>&gt;<span style="font-style: italic; text-decoration: underline;">Thanks</span>&lt;/<span style="color: #0000ff;">h3</span>&gt;
 </pre>
 
 
@@ -208,12 +229,10 @@ Here's the Geb code we need to match the HTML.  (Both expressions match)
 </p>
 
 
-
-<div class="org-src-container"><label class="org-src-name">simpleTestsAttributes()</label><pre class="src src-groovy">
-<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"h3"</span>, <span class="org-keyword">class</span>: <span class="org-string">"reallynow"</span>, text: <span class="org-string">"Thanks"</span>).size() == 1
-<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"h3.reallynow"</span>, text: <span class="org-string">"Thanks"</span>).size() == 1
+<div class="org-src-container"><label class="org-src-name">testSimpleAttributes()</label><pre class="src src-groovy">
+<span style="color: #a020f0;">assert</span> <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"h3"</span>, <span style="color: #a020f0;">class</span>: <span style="color: #8b2252;">"reallynow"</span>, text: <span style="color: #8b2252;">"Thanks"</span>).size() == 1
+<span style="color: #a020f0;">assert</span> <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"h3.reallynow"</span>, text: <span style="color: #8b2252;">"Thanks"</span>).size() == 1
 </pre></div>
-
 
 
 </div>
@@ -221,7 +240,7 @@ Here's the Geb code we need to match the HTML.  (Both expressions match)
 </div>
 
 <div id="outline-container-1_5" class="outline-3">
-<h3 id="sec-1_5"><span class="section-number-3">1.5</span> Testing Relationships </h3>
+<h3 id="sec-1_5"><a name="ID-242aa226-c2a5-40eb-9fe0-8b3c78d9f636" id="ID-242aa226-c2a5-40eb-9fe0-8b3c78d9f636"></a><span class="section-number-3">1.5</span> Testing Relationships </h3>
 <div class="outline-text-3" id="text-1_5">
 
 <p>Here we have a &lt;p&gt; element that's right next to an h3 which has the
@@ -231,18 +250,110 @@ correct version.
 
 
 
-<pre class="src src-html">&lt;<span class="org-function-name">h3</span> <span class="org-variable-name">class</span>=<span class="org-string">"reallynow"</span>&gt;<span class="org-underline"><span class="org-italic">Version</span></span>&lt;/<span class="org-function-name">h3</span>&gt;
-&lt;<span class="org-function-name">p</span>&gt;Version 0.2 "Dangle"&lt;/<span class="org-function-name">p</span>&gt;
+<pre class="src src-html">&lt;<span style="color: #0000ff;">h3</span> <span style="color: #a0522d;">class</span>=<span style="color: #8b2252;">"reallynow"</span>&gt;<span style="font-style: italic; text-decoration: underline;">Version</span>&lt;/<span style="color: #0000ff;">h3</span>&gt;
+&lt;<span style="color: #0000ff;">p</span>&gt;Version 0.2 "Dangle"&lt;/<span style="color: #0000ff;">p</span>&gt;
 </pre>
 
 
 
 
-<div class="org-src-container"><label class="org-src-name">simpleTestsRelationships()</label><pre class="src src-groovy">
-<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"h3.reallynow"</span>).siblings(<span class="org-string">"p"</span>).find { it.text =~/<span class="org-type">Dangle</span>/)
-<span class="org-keyword">assert</span> <span class="org-variable-name">$(</span><span class="org-string">"h3.reallynow"</span>).siblings(<span class="org-string">"p"</span>).find { it.text =~/0.2/)
+<div class="org-src-container"><label class="org-src-name">simpleTestRelationships()</label><pre class="src src-groovy">
+<span style="color: #a020f0;">assert</span> <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"h3.reallynow"</span>).siblings(<span style="color: #8b2252;">"p"</span>).find { it.text() =~/<span style="color: #228b22;">Dangle</span>/ }
+<span style="color: #a020f0;">assert</span> <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"h3.reallynow"</span>).siblings(<span style="color: #8b2252;">"p"</span>).find { it.text() =~/0\.2/ }
 </pre></div>
 
+
+</div>
+
+</div>
+
+<div id="outline-container-1_6" class="outline-3">
+<h3 id="sec-1_6"><a name="ID-a9ea7c49-5935-4f45-87df-040696a8390d" id="ID-a9ea7c49-5935-4f45-87df-040696a8390d"></a><span class="section-number-3">1.6</span> Failed Login </h3>
+<div class="outline-text-3" id="text-1_6">
+
+
+
+
+<div class="org-src-container"><label class="org-src-name">failedLogin()</label><pre class="src src-groovy">
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"a"</span>, text:<span style="color: #8b2252;">"Login"</span>).click()
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"#loginForm"</span>).username = <span style="color: #8b2252;">"badguy"</span>
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"#loginForm"</span>).password = <span style="color: #8b2252;">"badguypassword"</span>
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"#login"</span>).click()
+<span style="color: #a020f0;">assert</span> title == <span style="color: #8b2252;">"Login"</span>
+<span style="color: #a020f0;">assert</span> <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"*"</span>, text: ~/.*<span style="color: #228b22;">Invalid</span>.*username.*password/).size() &gt; 0
+</pre></div>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1_7" class="outline-3">
+<h3 id="sec-1_7"><a name="ID-87777828-2f37-46d9-b183-fa837a521e38" id="ID-87777828-2f37-46d9-b183-fa837a521e38"></a><span class="section-number-3">1.7</span> Successful Login </h3>
+<div class="outline-text-3" id="text-1_7">
+
+
+
+
+<div class="org-src-container"><label class="org-src-name">successfulLogin()</label><pre class="src src-groovy">
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"a"</span>, text:<span style="color: #8b2252;">"Login"</span>).click()
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"#loginForm"</span>).username = <span style="color: #8b2252;">"gug"</span>
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"#loginForm"</span>).password = <span style="color: #8b2252;">"groovy18"</span>
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"#login"</span>).click()
+<span style="color: #a020f0;">assert</span> <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"*"</span>, text: ~/.*<span style="color: #228b22;">Welcome</span> to <span style="color: #228b22;">Enrollio</span>, gug!.*/).size() &gt; 0
+</pre></div>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1_8" class="outline-3">
+<h3 id="sec-1_8"><span class="section-number-3">1.8</span> One more powerful example </h3>
+<div class="outline-text-3" id="text-1_8">
+
+
+<ul>
+<li>
+On our <a href="static/students.html">students</a> page, we have a Students table
+</li>
+<li>
+Students table contains links to different "Woodstock Jacksons".  One's a parent, the other is a student.
+</li>
+<li>
+In the first test, we want to click on the parent
+</li>
+<li>
+Second test, click on the student
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-html"><span style="color: #b22222;">&lt;!-- </span><span style="color: #b22222;">Link to Woodstock Jackson (parent is in the FIRST td) </span><span style="color: #b22222;">--&gt;</span>
+&lt;<span style="color: #0000ff;">tr</span>&gt;&lt;<span style="color: #0000ff;">td</span>&gt;&lt;<span style="color: #0000ff;">a</span> <span style="color: #a0522d;">href</span>=<span style="color: #8b2252;">"/parents/2"</span>&gt;Woodstock Jackson&lt;/<span style="color: #0000ff;">a</span>&gt;&lt;/<span style="color: #0000ff;">td</span>&gt;
+<span style="color: #b22222;">&lt;!-- </span><span style="color: #b22222;">Link to Woodstock Jackson (student is in the SECOND td) </span><span style="color: #b22222;">--&gt;</span>
+&lt;<span style="color: #0000ff;">tr</span>&gt;&lt;<span style="color: #0000ff;">td</span>&gt;&lt;<span style="color: #0000ff;">a</span> <span style="color: #a0522d;">href</span>=<span style="color: #8b2252;">"/parents/2"</span>&gt;Schizoid Jackson&gt;&lt;/<span style="color: #0000ff;">td</span>&gt;&lt;<span style="color: #0000ff;">td</span>&gt;&lt;<span style="color: #0000ff;">a</span> <span style="color: #a0522d;">href</span>="/students/2"&gt;Woodstock Jackson&lt;/<span style="color: #0000ff;">a</span>&gt;
+</pre>
+
+
+
+<div class="org-src-container"><label class="org-src-name">complexExample()</label><pre class="src src-groovy">
+<span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"a"</span>, text:<span style="color: #8b2252;">"Students"</span>).click()
+
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">linkToWoodstockParent</span> = <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"tr td:first-child a"</span>, text<span style="color: #008b8b;">:contains</span>(<span style="color: #8b2252;">"Woodstock Jackson"</span>))
+<span style="color: #a020f0;">assert</span> parentLink.size() != 0
+parentLink.click()
+<span style="color: #a020f0;">assert</span> title == <span style="color: #8b2252;">"Contact:Woodstock Jackson"</span>
+driver.navigate().back()
+
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">linkToWoodstockStudent</span> = <span style="color: #a0522d;">$(</span><span style="color: #8b2252;">"tr td:nth-child(2) a"</span>, text<span style="color: #008b8b;">:contains</span>(<span style="color: #8b2252;">"Woodstock Jackson"</span>))
+<span style="color: #a020f0;">assert</span> studentLink.size() != 0
+studentLink.click()
+<span style="color: #a020f0;">assert</span> title == <span style="color: #8b2252;">"Student: Woodstock Jackson"</span>
+</pre></div>
 
 
 </div>
@@ -251,12 +362,33 @@ correct version.
 </div>
 
 <div id="outline-container-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> See Also </h2>
+<h2 id="sec-2"><span class="section-number-2">2</span> Moving Along </h2>
 <div class="outline-text-2" id="text-2">
 
 <ul>
 <li>
-Geb
+Need to find out how to get more descriptive test results when running simple tests.
+</li>
+<li>
+Would need to replicate a lot of code when running similar tests
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> See Also </h2>
+<div class="outline-text-2" id="text-3">
+
+<ul>
+<li>
+Geb home page:
+</li>
+<li>
+Geb Mailing List: <a href="http://markmail.org/list/org.codehaus.geb.user">http://markmail.org/list/org.codehaus.geb.user</a>
 </li>
 </ul>
 
@@ -265,7 +397,7 @@ Geb
 <div id="postamble">
 <p class="author"> Author: nate
 </p>
-<p class="date"> Date: 2010-12-06 00:13:31 CST</p>
+<p class="date"> Date: 2010-12-07 00:30:52 CST</p>
 <p class="creator">HTML generated by org-mode 7.3 in emacs 23</p>
 </div>
 </div>
