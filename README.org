@@ -78,12 +78,18 @@ assert $("h3.reallynow").siblings("p").find { it.text() =~/Dangle/ }
 assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 #+end_src
 *** Render :nopub:
+:PROPERTIES:
+:ID: bf607f74-3e8c-425d-996d-4bb8a667214a
+:END:
 #+begin_src groovy :tangle testSimpleRelationship.groovy :noweb tangle
 <<header>>
 <<simpleTestRelationships>>
 <<footer>>
 #+end_src
 ** Failed Login
+:PROPERTIES:
+:ID: a9ea7c49-5935-4f45-87df-040696a8390d
+:END:
 #+srcname: failedLogin
 #+begin_src groovy :tangle testLoginFailure.groovy :noweb tangle
 <<header>>
