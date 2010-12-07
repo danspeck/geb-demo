@@ -91,15 +91,13 @@ assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 :ID: a9ea7c49-5935-4f45-87df-040696a8390d
 :END:
 #+srcname: failedLogin
-#+begin_src groovy :tangle testLoginFailure.groovy :noweb tangle
-<<header>>
+#+begin_src groovy
 $("a", text:"Login").click()
 $("#loginForm").username = "badguy"
 $("#loginForm").password = "badguypassword"
 $("#login").click()
 assert title == "Login"
 assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
-<<footer>>
 #+end_src
 *** Render :nopub:
 #+begin_src groovy :tangle testFailedLogin.groovy :noweb tangle
