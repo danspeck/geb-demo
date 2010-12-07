@@ -247,10 +247,12 @@ catch (geb.error.DriveException dex) {
     System.exit(1)
 }
 #+end_src
-* Moving Along
-- Need to find out how to get more descriptive test results when running simple tests.
-- Would need to replicate a lot of code when running similar tests
 
-* See Also
-- Geb home page:
-- Geb Mailing List: http://markmail.org/list/org.codehaus.geb.user
+#+srcname: popHeader
+#+begin_src groovy
+@Grapes([
+              @Grab("org.codehaus.geb:geb-core:latest.release"),
+              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.0a5")
+])
+import geb.*
+#+end_src
