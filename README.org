@@ -99,14 +99,13 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 <<footer>>
 #+end_src
 ** One more powerful example
-#+srcname: powerfulExample
-#+begin_src groovy :noweb tangle
-
+#+begin_src groovy :tangle testComplexLinks.groovy :noweb tangle
+<<header>>
 $("a", text:"Students").click()
 def linkToWoodstockTheParent = $("h3", text: ~/.*Students.*/).next("table").children("tr td:first a").contains("Woodstock Jackson")[0]
 def linkToWoodstockTheStudent = $("h3", text: ~/.*Students.*/).next("table").children("tr td:nth-child(2) a").contains("Woodstock Jackson")[0]
+<<footer>>
 #+end_src
-
 * Geb Test Skeleton                                                   :nopub:
 :PROPERTIES:
 :ID: df2c04db-2a1f-40d7-9884-f44886a25ede
