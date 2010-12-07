@@ -132,7 +132,7 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 
 ** One more powerful example
 
-- On our [[static/students.html][students]] page, we have a Students table
+- On our [[file:static/students.html][students]] page, we have a Students table
 - Students table contains links to different "Woodstock Jacksons".  One's a parent, the other is a student.
 - In the first test, we want to click on the parent
 - Second test, click on the student
