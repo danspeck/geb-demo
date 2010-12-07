@@ -6,46 +6,22 @@
 - Recommended Groovy Version 1.7.5
 - I've tested on Ubuntu Linux, Windows XP, Cygwin
 - For this demo, you need Firefox installed
+- For drivers (Chrome, Internet Explorer), I /think/ you need to have that browser installed
 ** Quick Start
 Run this from the Groovy Console
 :PROPERTIES:
 :ID: a46d05d4-6d01-494d-833d-7245ccf530b9
 :END:
-#+BEGIN_SRC groovy #+begin_src groovy :tangle simpleTest.groovy
-  @Grapes([
-              @Grab("org.codehaus.geb:geb-core:latest.release"),
-              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
-  ])
-  
-  import geb.Browser
-  Browser.drive("http://enrollio.org") {
-      assert title == "Help - About"
-      // Un-comment driver.close() to close the browser window
-      // driver.close()
-  }
-  
-#+END_SRC
+#+begin_src groovy :tangle simpleTest.groovy :noweb yes
+  <<header>>  
+        assert title == "Help - About"
+        // Un-comment driver.close() to close the browser window
+        // driver.close()  
+  <<footer>>
+#+end_src
 
 - Grapes pulls down dependency goodies.  How it works is beyond me.
 - Selenium runs under the hood, and creates an instance of the specified browser.
-
-** Geb Test Skeleton                                                 :nopub:
-:PROPERTIES:
-:ID: df2c04db-2a1f-40d7-9884-f44886a25ede
-:END:
-#+begin_src groovy :tangle advancedTest.groovy :noweb tangle
-@Grapes([
-              @Grab("org.codehaus.geb:geb-core:latest.release"),
-              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
-])
-import geb.Browser
-Browser.drive("http://enrollio.org") {
-    <<simpleTests>>
-    <<simpleTestsAttributes>>
-    <<simpleTestsRelationships>>
-    <<simpleTestsLinks>>
-}
-#+end_src
 ** CSS / Jquery like syntax for selecting HTML elements
 :PROPERTIES:
 :ID: 812abad7-d35f-4336-af83-b62b202e0592
@@ -98,20 +74,28 @@ assert $("h3.reallynow").siblings("p").find { it.text() =~/Dangle/ }
 assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 #+end_src
 ** Forms / Interaction
-#+srcname: loginFormTests
+#+srcname: loginFormFailure
 #+begin_src groovy :noweb tangle
-
 $("a", text:"Login").click()
 $("#loginForm").username = "badguy"
 $("#loginForm").password = "badguypassword"
 $("#login").click()
 assert title == "Login"
 assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
+#+end_src
 
-$("#loginForm").username = "gug"
-$("#loginForm").password = "groovy18"
-$("#login").click()
-assert $("*", text: ~/.*Welcome to Enrollio, gug!.*/).size() > 0
+** Successful Login
+:PROPERTIES:
+:ID: 87777828-2f37-46d9-b183-fa837a521e38
+:END:
+#+srcname:loginFormSuccess
+#+begin_src groovy :tangle testLoginSuccess.groovy :noweb tangle
+<<header>>
+    $("#loginForm").username = "gug"
+    $("#loginForm").password = "groovy18"
+    $("#login").click()
+    assert $("*", text: ~/.*Welcome to Enrollio, gug!.*/).size() > 0
+<<footer>>
 #+end_src
 ** One more powerful example
 #+srcname: powerfulExample
@@ -122,6 +106,24 @@ def linkToWoodstockTheParent = $("h3", text: ~/.*Students.*/).next("table").chil
 def linkToWoodstockTheStudent = $("h3", text: ~/.*Students.*/).next("table").children("tr td:nth-child(2) a").contains("Woodstock Jackson")[0]
 #+end_src
 
+* Geb Test Skeleton                                                   :nopub:
+:PROPERTIES:
+:ID: df2c04db-2a1f-40d7-9884-f44886a25ede
+:END:
+#+srcname: header
+#+begin_src groovy
+@Grapes([
+              @Grab("org.codehaus.geb:geb-core:latest.release"),
+              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
+])
+import geb.Browser
+Browser.drive("http://enrollio.org") {
+#+end_src
+
+#+srcname: footer
+#+begin_src groovy
+}
+#+end_src
 * Moving Along
 - Need to find out how to get more descriptive test results when running simple tests.
 - Would need to replicate a lot of code when running similar tests
