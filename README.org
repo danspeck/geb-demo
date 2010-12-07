@@ -4,14 +4,14 @@
 * Geb
 ** Installation
 - Recommended Groovy Version 1.7.5
-- I've tested on Ubuntu Linux, other OSs to follow
+- I've tested on Ubuntu Linux, Windows XP, Cygwin
 - For this demo, you need Firefox installed
 ** Quick Start
 Run this from the Groovy Console
 :PROPERTIES:
 :ID: a46d05d4-6d01-494d-833d-7245ccf530b9
 :END:
-#+BEGIN_SRC groovy
+#+BEGIN_SRC groovy #+begin_src groovy :tangle simpleTest.groovy
   @Grapes([
               @Grab("org.codehaus.geb:geb-core:latest.release"),
               @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
@@ -20,7 +20,10 @@ Run this from the Groovy Console
   import geb.Browser
   Browser.drive("http://enrollio.org") {
       assert title == "Help - About"
+      // Un-comment driver.close() to close the browser window
+      // driver.close()
   }
+  
 #+END_SRC
 
 - Grapes pulls down dependency goodies.  How it works is beyond me.
@@ -40,6 +43,7 @@ Browser.drive("http://enrollio.org") {
     <<simpleTests>>
     <<simpleTestsAttributes>>
     <<simpleTestsRelationships>>
+    <<simpleTestsLinks>>
 }
 #+end_src
 ** CSS / Jquery like syntax for selecting HTML elements
@@ -58,6 +62,9 @@ Test results are some kind of instance of selenium's FirefoxWebElement
 http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html
 
 ** Attribute Selectors
+:PROPERTIES:
+:ID: 56d305d5-f9a0-4d8b-bdf4-2ef7e139d86a
+:END:
 Say we have the following HTML:
 
 #+begin_src html
@@ -73,6 +80,9 @@ Here's the Geb code we need to match the HTML.  (Both expressions match)
 #+end_src
 
 ** Testing Relationships
+:PROPERTIES:
+:ID: 242aa226-c2a5-40eb-9fe0-8b3c78d9f636
+:END:
 Here we have a <p> element that's right next to an h3 which has the
 version of our software.  We can make sure the website shows the
 correct version.
@@ -87,10 +97,35 @@ correct version.
 assert $("h3.reallynow").siblings("p").find { it.text() =~/Dangle/ }
 assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 #+end_src
+** Forms / Interaction
+#+srcname: loginFormTests
+#+begin_src groovy :noweb tangle
+
+$("a", text:"Login").click()
+$("#loginForm").username = "badguy"
+$("#loginForm").password = "badguypassword"
+$("#login").click()
+assert title == "Login"
+assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
+
+$("#loginForm").username = "gug"
+$("#loginForm").password = "groovy18"
+$("#login").click()
+assert $("*", text: ~/.*Welcome to Enrollio, gug!.*/).size() > 0
+#+end_src
+** One more powerful example
+#+srcname: powerfulExample
+#+begin_src groovy :noweb tangle
+
+$("a", text:"Students").click()
+def linkToWoodstockTheParent = $("h3", text: ~/.*Students.*/).next("table").children("tr td:first a").contains("Woodstock Jackson")[0]
+def linkToWoodstockTheStudent = $("h3", text: ~/.*Students.*/).next("table").children("tr td:nth-child(2) a").contains("Woodstock Jackson")[0]
+#+end_src
 
 * Moving Along
 - Need to find out how to get more descriptive test results when running simple tests.
 - Would need to replicate a lot of code when running similar tests
 
 * See Also
-- Geb
+- Geb home page:
+- Geb Mailing List: http://markmail.org/list/org.codehaus.geb.user
