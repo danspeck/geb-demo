@@ -1,19 +1,19 @@
 #+EXPORT_EXCLUDE_TAGS: nopub
 #+TITLE:Geb
+* Another web testing framework?
+- Geb uses CSS / Jquery like syntax for selecting HTML elements
 
-* Geb
-** Another web testing framework?
-*** Geb uses CSS / Jquery like syntax for selecting HTML elements
-
-
-*** Page-Object Pattern
-** Installation
+- Full Power of Groovy
+- Page-Object Pattern
+* Installation
 - Recommended Groovy Version 1.7.5
 - I've tested on Ubuntu Linux, Windows XP, Cygwin
 - For this demo, you need Firefox installed
+  - Latest Selenium driver has some bugs
+  - For this pres, I use org.seleniumhq.selenium:selenium-firefox-driver:2.0a
 - To test other browsers (Chrome, Internet Explorer), I /think/ you
   need to have that browser installed on your system.
-** Quick Start
+* Quick Start
 Run this from the Groovy Console
 :PROPERTIES:
 :ID: a46d05d4-6d01-494d-833d-7245ccf530b9
@@ -33,7 +33,7 @@ Run this from the Groovy Console
 - Test results are some kind of instance of selenium's FirefoxWebElement
 http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html
 
-** Attribute Selectors
+* Attribute Selectors
 :PROPERTIES:
 :ID: 56d305d5-f9a0-4d8b-bdf4-2ef7e139d86a
 :END:
@@ -49,7 +49,7 @@ Here's the Geb code we need to match the HTML.  (Both expressions match)
     assert $("h3", class: "reallynow", text: "Thanks").size() == 1
     assert $("h3.reallynow", text: "Thanks").size() == 1
 #+end_src
-*** Render :nopub:
+** Render                                                            :nopub:
 :PROPERTIES:
 :ID: bf607f74-3e8c-425d-996d-4bb8a667214a
 :END:
@@ -59,7 +59,7 @@ Here's the Geb code we need to match the HTML.  (Both expressions match)
 <<footer>>
 #+end_src
 
-** Testing Relationships
+* Testing Relationships
 :PROPERTIES:
 :ID: 242aa226-c2a5-40eb-9fe0-8b3c78d9f636
 :END:
@@ -77,7 +77,7 @@ correct version.
 assert $("h3.reallynow").siblings("p").find { it.text() =~/Dangle/ }
 assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 #+end_src
-*** Render :nopub:
+** Render                                                            :nopub:
 :PROPERTIES:
 :ID: bf607f74-3e8c-425d-996d-4bb8a667214a
 :END:
@@ -86,7 +86,7 @@ assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 <<simpleTestRelationships>>
 <<footer>>
 #+end_src
-** Failed Login
+* Failed Login
 :PROPERTIES:
 :ID: a9ea7c49-5935-4f45-87df-040696a8390d
 :END:
@@ -99,7 +99,7 @@ $("#login").click()
 assert title == "Login"
 assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 #+end_src
-*** Render :nopub:
+** Render                                                            :nopub:
 :PROPERTIES:
 :ID: 6459a426-c5e3-4b1d-bab7-15a98f5acd7a
 :END:
@@ -108,7 +108,7 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 <<failedLogin>>
 <<footer>>
 #+end_src
-** Successful Login
+* Successful Login
 :PROPERTIES:
 :ID: 87777828-2f37-46d9-b183-fa837a521e38
 :END:
@@ -120,7 +120,7 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
     $("#login").click()
     assert $("*", text: ~/.*Welcome to Enrollio, gug!.*/).size() > 0
 #+end_src
-*** Render :nopub:
+** Render                                                            :nopub:
 :PROPERTIES:
 :ID: bdaed8a7-2fd7-452a-8045-123316ed4248
 :END:
@@ -130,7 +130,7 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 <<footer>>
 #+end_src
 
-** One more powerful example
+* One more powerful example
 
 - On our [[file:static/students.html][students]] page, we have a Students table
 - Students table contains links to different "Woodstock Jacksons".  One's a parent, the other is a student.
