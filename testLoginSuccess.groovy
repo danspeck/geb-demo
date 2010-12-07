@@ -6,9 +6,8 @@
 import geb.Browser
 Browser.drive("http://enrollio.org") {
 $("a", text:"Login").click()
-$("#loginForm").username = "badguy"
-$("#loginForm").password = "badguypassword"
+$("#loginForm").username = "gug"
+$("#loginForm").password = "groovy18"
 $("#login").click()
-assert title == "Login"
-assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
+assert $("*", text: ~/.*Welcome to Enrollio, gug!.*/).size() > 0
 }
