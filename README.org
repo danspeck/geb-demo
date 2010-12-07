@@ -206,6 +206,8 @@ http://geb.codehaus.org/manual/latest/intro.html#the_page_object_pattern
   }
   
 #+end_src
+
+Compare this to [[Failed Login]]
 *** Render :nopub:
 :PROPERTIES:
 :ID: 1FFA9F61-6D48-4CD4-804C-584C7BD40707
@@ -216,7 +218,7 @@ http://geb.codehaus.org/manual/latest/intro.html#the_page_object_pattern
 <<failedLoginPageObjectPattern>>
 #+end_src
 
-** Compared To
+
 * Easy to Get Started
 - Demo of Peter's SpringOnePresentation
 http://github.com/geb/geb-springone2gx-2010-example.git
