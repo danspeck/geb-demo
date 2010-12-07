@@ -30,27 +30,33 @@ Run this from the Groovy Console
 
 - Grapes pulls down dependency goodies.  How it works is beyond me.
 - Selenium runs under the hood, and creates an instance of the specified browser.
-** CSS / Jquery like syntax for selecting HTML elements
-Test results are some kind of instance of selenium's FirefoxWebElement
+- Test results are some kind of instance of selenium's FirefoxWebElement
 http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html
+
 ** Attribute Selectors
 :PROPERTIES:
 :ID: 56d305d5-f9a0-4d8b-bdf4-2ef7e139d86a
 :END:
-Say we have the following HTML:
+Given the following HTML:
 
 #+begin_src html
 <h3 class="reallynow">Thanks</h3>
 #+end_src
 
 Here's the Geb code we need to match the HTML.  (Both expressions match)
-
-#+srcname: simpleTestsAttributes
-#+begin_src groovy :noweb tangle
-    <<header>>
+#+srcname: testSimpleAttributes
+#+begin_src groovy
     assert $("h3", class: "reallynow", text: "Thanks").size() == 1
     assert $("h3.reallynow", text: "Thanks").size() == 1
-    <<footer>>
+#+end_src
+*** Render :nopub:
+:PROPERTIES:
+:ID: bf607f74-3e8c-425d-996d-4bb8a667214a
+:END:
+#+begin_src groovy :tangle testSimpleAttributes.groovy :noweb tangle
+<<header>>
+<<testSimpleAttributes>>
+<<footer>>
 #+end_src
 
 ** Testing Relationships
