@@ -121,6 +121,9 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
     assert $("*", text: ~/.*Welcome to Enrollio, gug!.*/).size() > 0
 #+end_src
 *** Render :nopub:
+:PROPERTIES:
+:ID: bdaed8a7-2fd7-452a-8045-123316ed4248
+:END:
 #+begin_src groovy :tangle testLoginSuccess.groovy :noweb tangle
 <<header>>
 <<successfulLogin>>
@@ -128,23 +131,37 @@ assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 #+end_src
 
 ** One more powerful example
+
+- On our [[static/students.html][students]] page, we have a Students table
+- Students table contains links to different "Woodstock Jacksons".  One's a parent, the other is a student.
+- In the first test, we want to click on the parent
+- Second test, click on the student
+
+#+begin_src html
+<!-- Link to Woodstock Jackson (parent is in the FIRST td) -->
+<tr><td><a href="/parents/2">Woodstock Jackson</a></td>
+<!-- Link to Woodstock Jackson (student is in the SECOND td) -->
+<tr><td><a href="/parents/2">Schizoid Jackson></td><td><a href="/students/2">Woodstock Jackson</a>
+#+end_src
 #+srcname:complexExample
 #+begin_src groovy
-$("a", text:"Students").click()
-        def studentsTable = $("h3", text: ~/.*Students.*/).next("table")
-        def linkToWoodstockParent = studentsTable.find("tr td:first-child a", text:contains("Woodstock Jackson"))
-        assert linkToWoodstockParent.size() != 0
-        linkToWoodstockParent.click()
+        $("a", text:"Students").click()
+
+        def linkToWoodstockParent = $("tr td:first-child a", text:contains("Woodstock Jackson"))
+        assert parentLink.size() != 0
+        parentLink.click()
         assert title == "Contact:Woodstock Jackson"
-        // TODO go back
         driver.navigate().back()
 
-        def linkToWoodstockStudent = studentsTable.find("tr td:nth-child(2) a", text:contains("Woodstock Jackson"))
-        assert linkToWoodstockStudent.size() != 0
-        linkToWoodstockStudent.click()
+        def linkToWoodstockStudent = $("tr td:nth-child(2) a", text:contains("Woodstock Jackson"))
+        assert studentLink.size() != 0
+        studentLink.click()
         assert title == "Student: Woodstock Jackson"
 #+end_src
 *** Render :nopub:
+:PROPERTIES:
+:ID: 125a917b-49b5-4d98-8cf9-88d9fbe4bdab
+:END:
 #+begin_src groovy :tangle testComplexExample.groovy :noweb tangle
 <<header>>
 <<successfulLogin>>
