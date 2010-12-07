@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+    <head>
+        <title>
+            Student List
+        </title>
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+        <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="css/ie-sucks.css" />
+        <![endif]-->
+        <link rel="stylesheet" type="text/css" href="/css/redmond/jquery-ui-1.7.2.custom.css" />
+        <link rel="stylesheet" type="text/css" href="/css/theme.css" />
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/css/theme1.css" />
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+        <meta content="main" name="layout"/>
+        <meta content="student" name="tabName"/>    
+        
+    
+        
+        <script type="text/javascript" src="/js/application.js"></script>
+
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <img style="vertical-align:middle" src="http://enrollio.org/images/mascot_real.png" />
+                
+                    <h2 style="display:inline">Welcome to Enrollio, 
+                    admin!</h2>
+                
+                
+    
+                <div id="topmenu">
+                    <ul class="navigation" id="navigation_mainMenu"><li class="navigation_first"><a href="/calendar">Calendar</a></li><li><a href="/courses">Courses</a></li><li class="navigation_active"><a href="/students">Students</a></li><li><a href="/admin">Admin</a></li><li><a href="/help">Help</a></li><li class="navigation_last"><a href="/logout">Logout</a></li></ul> 
+                </div>
+            </div>
+            
+        <div id="wrapper">
+            <div id="content">
+                <div class="rightnow">
+                        <h3 class="reallynow">Search Students/Contacts</h3>
+<form action="/students" method="get" id="studentSearchForm" name="searchableForm" >
+    <input type="text" name="q" size="20" value="" id="q" />
+    <input id="studentSearchButton" type="submit" value="Search" />
+</form>
+
+                    </div>
+                    
+             <div class="rightnow">
+                    <h3 class="reallynow">Students 
+                    <br /></h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="sortable" ><a href="/students?sort=contact&amp;order=asc">Contact</a></th>
+                                <th class="sortable" ><a href="/students?sort=firstName&amp;order=asc">Student(s)</a></th>
+                                <th>Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr class="odd">
+                                <td>
+                                    <a href="/contact/1" name="contactLink_1">Woodstock Jackson</a>
+                                </td>
+                                <td>
+                                    <a href="/student/1">Dan Jackson</a>, <a href="/student/2">Patty Jackson</a>, <a href="/student/209">Homer Jackson</a>, <a href="/student/212">Jackson</a>
+                                </td>
+                                <td>553 Klein, Saint Louis, MO  63003-1234 (314)-123-5188, (314)-444-7237</td>
+                            </tr>
+                            
+                            <tr class="even">
+                                <td>
+                                    <a href="/contact/2" name="contactLink_2">Snoopy La Russa</a>
+                                </td>
+                                <td>
+                                    <a href="/student/3">Chris La Russa</a>, <a href="/student/4">Bob La Russa</a>, <a href="/student/195">Fizz La Russa</a>
+                                </td>
+                                <td>253 Virginia, Saint Louis, MO  63052-1234 (314)-123-6105, (314)-444-7283</td>
+                            </tr>
+                            
+                            <tr class="odd">
+                                <td>
+                                    <a href="/contact/3" name="contactLink_3">Schizoid Jackson</a>
+                                </td>
+                                <td>
+                                    <a href="/student/5">Woodstock Jackson</a>, <a href="/student/6">Charlie Jackson</a>, <a href="/student/210">Dango Jackson</a>, <a href="/student/211">Boffo Jackson</a>, <a href="/student/214">janet Jackson</a>
+                                </td>
+                                <td>418 Ryholight, Saint Louis, MO  63075-1234 (314)-123-4428, (314)-444-2007</td>
+                            </tr>
+                            
+                            <tr class="even">
+                                <td>
+                                    <a href="/contact/4" name="contactLink_4">Nate Davis</a>
+                                </td>
+                                <td>
+                                    <a href="/student/7">Schizoid Davis</a>, <a href="/student/8">Missie Davis</a>
+                                </td>
+                                <td>241 Klein, Saint Louis, MO  63043-1234 (314)-123-5031, (314)-444-2398</td>
+                            </tr>
+                            
+                            <tr class="odd">
+                                <td>
+                                    <a href="/contact/5" name="contactLink_5">Bob Walters</a>
+                                </td>
+                                <td>
+                                    <a href="/student/9">Snarf Walters</a>, <a href="/student/10">Wong Walters</a>, <a href="/student/11">Charlie Walters</a>
+                                </td>
+                                <td>371 Virginia, Saint Louis, MO  63017-1234 (314)-123-8141, (314)-444-3523</td>
+                            </tr>
+                            
+                            <tr class="even">
+                                <td>
+                                    <a href="/contact/6" name="contactLink_6">Chris Jackson</a>
+                                </td>
+                                <td>
+                                    <a href="/student/12">Dan Jackson</a>, <a href="/student/191">Dave J Jackson</a>, <a href="/student/192">Joe Jackson</a>, <a href="/student/193">Jackson</a>, <a href="/student/194">sss Jackson</a>
+                                </td>
+                                <td>510 Oklahoma, Apt. A, Saint Louis, MO  63009-1234 (314)-123-7126, (314)-444-5154</td>
+                            </tr>
+                            
+                            <tr class="odd">
+                                <td>
+                                    <a href="/contact/7" name="contactLink_7">Bob Fudd</a>
+                                </td>
+                                <td>
+                                    <a href="/student/13">Wong Fudd</a>
+                                </td>
+                                <td>569 James, Saint Louis, MO  63091-1234 (314)-123-2113, (314)-444-8694</td>
+                            </tr>
+                            
+                            <tr class="even">
+                                <td>
+                                    <a href="/contact/8" name="contactLink_8">Wong Manson</a>
+                                </td>
+                                <td>
+                                    <a href="/student/14">Patty Manson</a>
+                                </td>
+                                <td>873 Klein, Apt. A, Saint Louis, MO  63005-1234 (314)-123-3218, (314)-444-8673</td>
+                            </tr>
+                            
+                            <tr class="odd">
+                                <td>
+                                    <a href="/contact/9" name="contactLink_9">Schizoid Ryholight</a>
+                                </td>
+                                <td>
+                                    <a href="/student/15">Snarf Ryholight</a>
+                                </td>
+                                <td>662 Virginia, Saint Louis, MO  63062-1234 (314)-123-9870, (314)-444-5649</td>
+                            </tr>
+                            
+                            <tr class="even">
+                                <td>
+                                    <a href="/contact/10" name="contactLink_10">Julie Flintstone</a>
+                                </td>
+                                <td>
+                                    <a href="/student/16">Chris Flintstone</a>
+                                </td>
+                                <td>794 Royal, Saint Louis, MO  63055-1234 (314)-123-1780, (314)-444-7107</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    <div class="paginateButtons">
+                        
+                            <span class="currentStep">1</span><a href="/students?q=&amp;offset=10&amp;max=10" class="step">2</a><a href="/students?q=&amp;offset=20&amp;max=10" class="step">3</a><a href="/students?q=&amp;offset=30&amp;max=10" class="step">4</a><a href="/students?q=&amp;offset=40&amp;max=10" class="step">5</a><a href="/students?q=&amp;offset=50&amp;max=10" class="step">6</a><a href="/students?q=&amp;offset=60&amp;max=10" class="step">7</a><a href="/students?q=&amp;offset=70&amp;max=10" class="step">8</a><a href="/students?q=&amp;offset=80&amp;max=10" class="step">9</a><a href="/students?q=&amp;offset=90&amp;max=10" class="step">10</a><span class="step">..</span><a href="/students?q=&amp;offset=110&amp;max=10" class="step">12</a><a href="/students?q=&amp;offset=10&amp;max=10" class="nextLink">Next</a>
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar">
+                <ul>
+    <li>
+        <h3>
+            <a href="/students" class="group">Students</a>
+        </h3>
+        <ul>
+            <li>
+                <a href="/students" class="search" name="searchStudentsLink">Search</a>
+            </li>
+            <li>
+            
+                    <a href="/createContact" class="useradd" name="newStudentLink">New Student</a>
+            </li>
+            
+        </ul>
+    </li>
+</ul>
+
+            </div>
+        </div>
+    
+        </div>
+    </body>
+</html>
