@@ -100,6 +100,9 @@ assert title == "Login"
 assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 #+end_src
 *** Render :nopub:
+:PROPERTIES:
+:ID: 6459a426-c5e3-4b1d-bab7-15a98f5acd7a
+:END:
 #+begin_src groovy :tangle testFailedLogin.groovy :noweb tangle
 <<header>>
 <<failedLogin>>
