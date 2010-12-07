@@ -2,6 +2,11 @@
 #+TITLE:Geb
 
 * Geb
+** Another web testing framework?
+*** Geb uses CSS / Jquery like syntax for selecting HTML elements
+
+
+*** Page-Object Pattern
 ** Installation
 - Recommended Groovy Version 1.7.5
 - I've tested on Ubuntu Linux, Windows XP, Cygwin
