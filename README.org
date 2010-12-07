@@ -18,26 +18,16 @@ Run this from the Groovy Console
         assert title == "Help - About"
         // Un-comment driver.close() to close the browser window
         // driver.close()  
+        assert $("a", text:"Loooogin").size() == 0
+        assert $("a", text:"Login").size() == 1
   <<footer>>
 #+end_src
 
 - Grapes pulls down dependency goodies.  How it works is beyond me.
 - Selenium runs under the hood, and creates an instance of the specified browser.
 ** CSS / Jquery like syntax for selecting HTML elements
-:PROPERTIES:
-:ID: 812abad7-d35f-4336-af83-b62b202e0592
-:END:
-#+srcname: simpleTests
-#+begin_src groovy :noweb tangle
-assert $("a", text:"Loooogin").size() == 0
-assert $("a", text:"Login").size() == 1
-#+end_src
-
 Test results are some kind of instance of selenium's FirefoxWebElement
-(if you're using Firefox Driver)
-
 http://webdriver.googlecode.com/svn/javadoc/org/openqa/selenium/firefox/FirefoxWebElement.html
-
 ** Attribute Selectors
 :PROPERTIES:
 :ID: 56d305d5-f9a0-4d8b-bdf4-2ef7e139d86a
@@ -52,8 +42,10 @@ Here's the Geb code we need to match the HTML.  (Both expressions match)
 
 #+srcname: simpleTestsAttributes
 #+begin_src groovy :noweb tangle
+    <<header>>
     assert $("h3", class: "reallynow", text: "Thanks").size() == 1
     assert $("h3.reallynow", text: "Thanks").size() == 1
+    <<footer>>
 #+end_src
 
 ** Testing Relationships
@@ -69,12 +61,19 @@ correct version.
 <p>Version 0.2 "Dangle"</p>
 #+end_src
 
-#+srcname: simpleTestsRelationships
-#+begin_src groovy :noweb tangle
+#+srcname: simpleTestRelationships
+#+begin_src groovy
 assert $("h3.reallynow").siblings("p").find { it.text() =~/Dangle/ }
 assert $("h3.reallynow").siblings("p").find { it.text() =~/0\.2/ }
 #+end_src
-** Forms / Interaction
+*** Render :nopub:
+#+begin_src groovy :tangle testSimpleRelationship.groovy :noweb tangle
+<<header>>
+<<simpleTestRelationships>>
+<<footer>>
+#+end_src
+** Failed Login
+#+srcname: failedLogin
 #+begin_src groovy :tangle testLoginFailure.groovy :noweb tangle
 <<header>>
 $("a", text:"Login").click()
@@ -85,28 +84,56 @@ assert title == "Login"
 assert $("*", text: ~/.*Invalid.*username.*password/).size() > 0
 <<footer>>
 #+end_src
+*** Render :nopub:
+#+begin_src groovy :tangle testFailedLogin.groovy :noweb tangle
+<<header>>
+<<failedLogin>>
+<<footer>>
+#+end_src
 ** Successful Login
 :PROPERTIES:
 :ID: 87777828-2f37-46d9-b183-fa837a521e38
 :END:
-#+srcname:loginFormSuccess
-#+begin_src groovy :tangle testLoginSuccess.groovy :noweb tangle
-<<header>>
+#+srcname: successfulLogin
+#+begin_src groovy
+    $("a", text:"Login").click()
     $("#loginForm").username = "gug"
     $("#loginForm").password = "groovy18"
     $("#login").click()
     assert $("*", text: ~/.*Welcome to Enrollio, gug!.*/).size() > 0
-<<footer>>
 #+end_src
-** One more powerful example
-#+begin_src groovy :tangle testComplexLinks.groovy :noweb tangle
+*** Render :nopub:
+#+begin_src groovy :tangle testLoginSuccess.groovy :noweb tangle
 <<header>>
-$("a", text:"Students").click()
-def linkToWoodstockTheParent = $("h3", text: ~/.*Students.*/).next("table").children("tr td:first a").contains("Woodstock Jackson")[0]
-def linkToWoodstockTheStudent = $("h3", text: ~/.*Students.*/).next("table").children("tr td:nth-child(2) a").contains("Woodstock Jackson")[0]
+<<successfulLogin>>
 <<footer>>
 #+end_src
-* Geb Test Skeleton                                                   :nopub:
+
+** One more powerful example
+#+srcname:complexExample
+#+begin_src groovy
+$("a", text:"Students").click()
+        def studentsTable = $("h3", text: ~/.*Students.*/).next("table")
+        def linkToWoodstockParent = studentsTable.find("tr td:first-child a", text:contains("Woodstock Jackson"))
+        assert linkToWoodstockParent.size() != 0
+        linkToWoodstockParent.click()
+        assert title == "Contact:Woodstock Jackson"
+        // TODO go back
+        driver.navigate().back()
+
+        def linkToWoodstockStudent = studentsTable.find("tr td:nth-child(2) a", text:contains("Woodstock Jackson"))
+        assert linkToWoodstockStudent.size() != 0
+        linkToWoodstockStudent.click()
+        assert title == "Student: Woodstock Jackson"
+#+end_src
+*** Render :nopub:
+#+begin_src groovy :tangle testComplexExample.groovy :noweb tangle
+<<header>>
+<<successfulLogin>>
+<<complexExample>>
+<<footer>>
+#+end_src
+* Source Code                                                   :nopub:
 :PROPERTIES:
 :ID: df2c04db-2a1f-40d7-9884-f44886a25ede
 :END:
