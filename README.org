@@ -6,7 +6,8 @@
 - Recommended Groovy Version 1.7.5
 - I've tested on Ubuntu Linux, Windows XP, Cygwin
 - For this demo, you need Firefox installed
-- For drivers (Chrome, Internet Explorer), I /think/ you need to have that browser installed
+- To test other browsers (Chrome, Internet Explorer), I /think/ you
+  need to have that browser installed on your system.
 ** Quick Start
 Run this from the Groovy Console
 :PROPERTIES:
