@@ -1,7 +1,7 @@
 
 @Grapes([
               @Grab("org.codehaus.geb:geb-core:latest.release"),
-              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:latest.release")
+              @Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.0a5")
 ])
 import geb.Browser
 try {
